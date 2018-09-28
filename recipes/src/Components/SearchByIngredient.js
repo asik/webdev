@@ -5,62 +5,77 @@ import HotIngredientList from './HotIngredientList';
 import * as ImmutableArray from '../Lib/ImmutableArray';
 
 const WithOrWithout = {
-    With: Symbol("With"),
-    Without: Symbol("Without")
+  With: Symbol("With"),
+  Without: Symbol("Without")
 }
 Object.freeze(WithOrWithout);
 
+const WithOrWithoutSelector = props => {
+  const text = props.withOrWithout === WithOrWithout.With ? "With" : "Without";
+  return (
+    <button type="button" onClick={_ => props.onClick()}>{text}</button>
+  );
+}
+
 class SearchByIngredient extends Component {
 
-    constructor(){
-        super();
-        this.state={
-            WithOrWithout: WithOrWithout.With,
-            Withs: ["egg", "pasta", "cucumber", "super cucumber"],
-            Withouts: ["lamb", "oh no", "not again"],
-            IngredientsHotList: ["mamamia", "lalala"]
-        }
+  constructor() {
+    super();
+    this.state = {
+      WithOrWithout: WithOrWithout.With,
+      Withs: ["egg", "pasta", "cucumber", "super cucumber"],
+      Withouts: ["lamb", "oh no", "not again"],
+      IngredientsHotList: ["mamamia", "lalala"]
     }
+  }
 
-    onSubmit = e => {
-        console.log(this.state);
-    }
+  onSubmit = e => {
+    console.log(this.state);
+  }
 
-    onRemoveWith = with_ => {
-        const index = this.state.Withs.indexOf(with_);
-        if (index > -1) {
-            this.setState({
-                Withs: ImmutableArray.removeAt(this.state.Withs, index)
-            });
-        }
+  onRemoveWith = with_ => {
+    const index = this.state.Withs.indexOf(with_);
+    if (index > -1) {
+      this.setState({
+        Withs: ImmutableArray.removeAt(this.state.Withs, index)
+      });
     }
+  }
 
-    onRemoveWithout = without => {
-        const index = this.state.Withouts.indexOf(without);
-        if (index > -1) {
-            this.setState({
-                Withouts: ImmutableArray.removeAt(this.state.Withouts, index)
-            });
-        }
+  onRemoveWithout = without => {
+    const index = this.state.Withouts.indexOf(without);
+    if (index > -1) {
+      this.setState({
+        Withouts: ImmutableArray.removeAt(this.state.Withouts, index)
+      });
     }
+  }
 
-    onAddIngredient = ingredient => {
-        //TODO depending on another element state: with or without, add to either withs or withouts list
-        this.setState({
-            Withs: ImmutableArray.add(this.state.Withs, ingredient)
-        });
-    }
+  onAddIngredient = ingredient => {
+    this.setState(
+      this.state.WithOrWithout === WithOrWithout.With
+        ? { Withs: ImmutableArray.add(this.state.Withs, ingredient) }
+        : { Withouts: ImmutableArray.add(this.state.Withouts, ingredient) }
+    );
+  }
 
-    render(){
-        return (
-            <div>
-                <SearchField placeholder="By ingredient..." onSubmit={this.onSubmit}/>
-                <HotIngredientList ingredients={this.state.IngredientsHotList} onAdd={this.onAddIngredient} />
-                <IngredientList title="With" ingredients={this.state.Withs} onRemove={this.onRemoveWith} />
-                <IngredientList title="Without" ingredients={this.state.Withouts} onRemove={this.onRemoveWithout} />
-            </div>
-        );
-    }
+  onWithOrWithoutClicked = () => {
+    this.setState({
+      WithOrWithout: this.state.WithOrWithout === WithOrWithout.With ? WithOrWithout.Without : WithOrWithout.With
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <SearchField placeholder="By ingredient..." onSubmit={this.onSubmit} />
+        <WithOrWithoutSelector withOrWithout={this.state.WithOrWithout} onClick={this.onWithOrWithoutClicked} />
+        <HotIngredientList ingredients={this.state.IngredientsHotList} onAdd={this.onAddIngredient} />
+        <IngredientList title="With" ingredients={this.state.Withs} onRemove={this.onRemoveWith} />
+        <IngredientList title="Without" ingredients={this.state.Withouts} onRemove={this.onRemoveWithout} />
+      </div>
+    );
+  }
 }
 
 export default SearchByIngredient;

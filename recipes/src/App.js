@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import {Route, Switch, Redirect} from 'react-router-dom';
+import Search from './Components/Search'
 import './App.css';
-import Search from './Components/Search';
+import Recipe from './Components/Recipe';
 
 class App extends Component {
   render() {
@@ -11,8 +13,11 @@ class App extends Component {
           <button>Sign in</button>
           <button>Add a recipe</button>
         </header>
-        <Search/>
-        
+        <Switch>
+          <Redirect exact from="/" to="/search"/>
+          <Route path="/search" component={Search}/>
+          <Route path="/recipe/:id" component={Recipe}/>
+        </Switch>
       </div>
     );
   }
