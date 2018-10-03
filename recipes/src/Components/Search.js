@@ -13,7 +13,8 @@ class Search extends Component {
   constructor() {
     super();
     this.state = {
-      SearchMode: SearchMode.ByTitle
+      SearchMode: SearchMode.ByTitle,
+      Results: []
     }
   }
 
@@ -25,19 +26,25 @@ class Search extends Component {
     this.setState({ SearchMode: SearchMode.ByIngredient });
   }
 
+  onSearchResults = results => {
+    console.log(results);
+    this.setState({
+      Results: results
+    });
+  }
+
   render() {
     const searchComponent =
-      this.state.SearchMode === SearchMode.ByTitle ? <SearchByTitle /> : <SearchByIngredient />;
+      this.state.SearchMode === SearchMode.ByTitle 
+        ? <SearchByTitle onSearchResults={this.onSearchResults}/> 
+        : <SearchByIngredient onSearchResults={this.onSearchResults}/>;
 
     return (
       <div>
         {searchComponent}
         <button onClick={this.onClickByTitle}>By Title</button>
         <button onClick={this.onClickByIngredient}>By Ingredient</button>
-        <RecipeList recipes={[
-          { id:1234, title: "Coriander-Spiced Pork", time:30, starRating:3},
-          { id:4321,title: "Rich Lamb Ragu", time:20, starRating:5}
-        ]}/>
+        <RecipeList recipes={this.state.Results}/>
       </div>
     );
   }

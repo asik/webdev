@@ -82,15 +82,40 @@ const recipes = [
 ]
 
 
-export const searchIngredients = (searchString) => new Promise(function (resolve, reject) {
+export const searchIngredients = (searchString) => new Promise((resolve, _reject) => {
 
-  const allMatches = 
+  const allMatches =
     recipes
       .map(recipe => recipe.ingredients)
       .flat()
       .map(ingredient => ingredient.ingredient)
       .filter(ingredient => ingredient.includes(searchString));
-  const matches =  ImmutableArray.uniqueValues(allMatches);
+  const matches = ImmutableArray.uniqueValues(allMatches);
+
+  setTimeout(function () {
+    resolve(matches);
+  }, 300);
+});
+
+export const searchByIngredients = (withs, withouts) => new Promise((resolve, reject) => {
+  const matches =
+    recipes.filter(recipe => {
+      const includesWiths =
+        withs.every(with_ => recipe.ingredients.some(ingredient => ingredient.ingredient === with_));
+      const doesNotIncludeWithouts =
+        withouts.every(without => !(recipe.ingredients.some(ingredient => ingredient.ingredient === without)));
+      return includesWiths && doesNotIncludeWithouts;
+    });
+
+  setTimeout(function () {
+    resolve(matches);
+  }, 300);
+});
+
+export const searchByTitle = (title) => new Promise((resolve, reject) => {
+  const titleLowerCase = title.toLowerCase();
+  const matches =
+    recipes.filter(recipe => recipe.title.toLowerCase().includes(titleLowerCase));
 
   setTimeout(function () {
     resolve(matches);

@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import SearchField from './SearchField';
+import * as ApiMock from '../Lib/Api';
 
 class SearchByTitle extends Component {
 
   onSubmit = e => {
-    alert(e); //TODO actually search and display results
+    ApiMock.searchByTitle(e).then(results =>
+      this.props.onSearchResults(results)
+    );
   }
 
   render() {

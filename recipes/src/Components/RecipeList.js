@@ -6,7 +6,7 @@ const Recipe = props =>
   <div>
     <Link to={"/recipe/" + props.recipe.id}><p>{props.recipe.title}</p></Link>
     <span>{props.recipe.time} minutes</span>
-    <StarRating starRating={props.recipe.starRating} />
+    <StarRating starRating={props.recipe.rating} />
   </div>
 
 const RecipeList = props =>

@@ -30,8 +30,10 @@ class SearchByIngredient extends Component {
     }
   }
 
-  onSubmit = e => {
-    console.log(this.state);
+  onSubmit = _ => {
+    ApiStub.searchByIngredients(this.state.Withs, this.state.Withouts).then(results =>
+      this.props.onSearchResults(results)
+    );
   }
 
   onChange = e => {
