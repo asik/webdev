@@ -3,6 +3,7 @@ import SearchField from './SearchField';
 import IngredientList from './IngredientList'
 import HotIngredientList from './HotIngredientList';
 import * as ImmutableArray from '../Lib/ImmutableArray';
+import * as ApiStub from '../Lib/Api';
 
 const WithOrWithout = {
   With: Symbol("With"),
@@ -31,6 +32,13 @@ class SearchByIngredient extends Component {
 
   onSubmit = e => {
     console.log(this.state);
+  }
+
+  onChange = e => {
+    ApiStub.searchIngredients(e).then(result => 
+      this.setState({
+        IngredientsHotList: result
+      }));
   }
 
   onRemoveWith = with_ => {
@@ -68,7 +76,7 @@ class SearchByIngredient extends Component {
   render() {
     return (
       <div>
-        <SearchField placeholder="By ingredient..." onSubmit={this.onSubmit} />
+        <SearchField placeholder="By ingredient..." onChange={this.onChange} onSubmit={this.onSubmit} />
         <WithOrWithoutSelector withOrWithout={this.state.WithOrWithout} onClick={this.onWithOrWithoutClicked} />
         <HotIngredientList ingredients={this.state.IngredientsHotList} onAdd={this.onAddIngredient} />
         <IngredientList title="With" ingredients={this.state.Withs} onRemove={this.onRemoveWith} />

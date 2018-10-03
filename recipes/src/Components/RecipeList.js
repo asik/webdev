@@ -11,7 +11,7 @@ const Recipe = props =>
 
 const RecipeList = props =>
   <div>
-    {props.recipes.map(recipe => <Recipe recipe={recipe} />)}
+    {props.recipes.map(recipe => <Recipe key={recipe.id} recipe={recipe} />)}
   </div>
 
 export default RecipeList;
