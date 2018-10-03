@@ -1,3 +1,5 @@
+import * as ImmutableArray from './ImmutableArray';
+
 const recipes = [
   {
     id: 2345,
@@ -88,8 +90,7 @@ export const searchIngredients = (searchString) => new Promise(function (resolve
       .flat()
       .map(ingredient => ingredient.ingredient)
       .filter(ingredient => ingredient.includes(searchString));
-  const matchesSet = new Set(allMatches);
-  const matches = [...matchesSet.values()];
+  const matches =  ImmutableArray.uniqueValues(allMatches);
 
   setTimeout(function () {
     resolve(matches);

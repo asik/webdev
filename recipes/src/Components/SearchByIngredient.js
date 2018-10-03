@@ -24,9 +24,9 @@ class SearchByIngredient extends Component {
     super();
     this.state = {
       WithOrWithout: WithOrWithout.With,
-      Withs: ["egg", "pasta", "cucumber", "super cucumber"],
-      Withouts: ["lamb", "oh no", "not again"],
-      IngredientsHotList: ["mamamia", "lalala"]
+      Withs: [],
+      Withouts: [],
+      IngredientsHotList: []
     }
   }
 
@@ -35,10 +35,19 @@ class SearchByIngredient extends Component {
   }
 
   onChange = e => {
-    ApiStub.searchIngredients(e).then(result => 
+    if (e.length > 2)
+    {
+      ApiStub.searchIngredients(e).then(result => 
+        this.setState({
+          IngredientsHotList: result
+        }));
+    }
+    else
+    {
       this.setState({
-        IngredientsHotList: result
-      }));
+        IngredientsHotList: []
+      })
+    }
   }
 
   onRemoveWith = with_ => {
@@ -62,8 +71,8 @@ class SearchByIngredient extends Component {
   onAddIngredient = ingredient => {
     this.setState(
       this.state.WithOrWithout === WithOrWithout.With
-        ? { Withs: ImmutableArray.add(this.state.Withs, ingredient) }
-        : { Withouts: ImmutableArray.add(this.state.Withouts, ingredient) }
+        ? { Withs: ImmutableArray.uniqueValues(ImmutableArray.add(this.state.Withs, ingredient)) }
+        : { Withouts: ImmutableArray.uniqueValues(ImmutableArray.add(this.state.Withouts, ingredient)) }
     );
   }
 
