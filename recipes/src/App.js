@@ -1,37 +1,53 @@
-import React, { Component } from 'react';
-import {Route, Switch, Redirect} from 'react-router-dom';
-import Search from './Components/Search'
 import './App.css';
+
+import React, { Component } from 'react';
+import {Route, Switch, Redirect, Link} from 'react-router-dom';
+
+import Search from './Components/Search'
 import Recipe from './Components/Recipe';
-import Axios from 'axios'
+import AddRecipe from './Components/AddRecipe';
+import Login from './Components/Login';
+import PrivateRoute from './Components/PrivateRoute';
+import * as Api from './Lib/Api';
+ 
 
 class App extends Component {
 
-
-  onClick = () => {
-    Axios.get("https://localhost:44349/api/values", {withCredentials: true}).then(something => {
-      console.log(something);
-    }).catch(reason => {
-      console.log(reason.response);
-      if (reason.response.statusCode === 401){
-        console.log("401!!");
-      }
-    });
+  constructor(){
+    super();
+    this.state = {
+      authenticatedUser: ""
+    }
   }
+
+  isSignedIn = () => this.state.authenticatedUser !== "";
+  signIn = username => this.setState({authenticatedUser: username});
+  signOut = () => {
+    Api.logout().then(() => {
+      this.setState({authenticatedUser: ""});
+    });
+  };
 
   render() {
     return (
       <div>
         <header>
           <h1>Recipe galaxy</h1>
-          <button>Sign in</button>
-          <button type="button" onClick={() => this.onClick()}>Add a recipe</button>
+          {this.isSignedIn()
+            ? (<button onClick={() => this.signOut()}>Sign out</button>)
+            : (<Link to="/login">Sign in</Link>)}
+          <Link to={"/addrecipe"}><p>Add Recipe</p></Link>
         </header>        
         <Switch>
-        <Redirect exact from="/" to="/search"/>
-        <Route path="/search" component={Search}/>
-        <Route path="/recipe/:id" component={Recipe}/>
-      </Switch>
+          {this.isSignedIn()
+            ? <Redirect from="/login" to="/"/>
+            : []}
+          <Redirect exact from="/" to="/search"/>
+          <PrivateRoute path="/addrecipe" isAuthenticated={this.state.isAuthenticated} component={AddRecipe}/>
+          <Route path="/login" render={() => <Login loggedInAs={this.signIn}/>}/>
+          <Route path="/search" component={Search}/>
+          <Route path="/recipe/:id" component={Recipe}/>          
+        </Switch>
             
       </div>
     );

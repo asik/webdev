@@ -1,4 +1,7 @@
 import * as ImmutableArray from './ImmutableArray';
+//import Axios from 'axios'
+
+
 
 const recipes = [
   {
@@ -121,3 +124,18 @@ export const searchByTitle = (title) => new Promise((resolve, reject) => {
     resolve(matches);
   }, 300);
 });
+
+
+export const login = (username, password) => new Promise((resolve, reject) => {
+  setTimeout(function () {
+    resolve(username === "john" && password === "123456");
+  }, 300);
+});
+
+export const logout = () => new Promise((resolve, reject) => {
+  setTimeout(function () {
+    resolve();
+  }, 300);
+});
+
+// Axios.get("https://localhost:44349/api/values", {withCredentials: true})
