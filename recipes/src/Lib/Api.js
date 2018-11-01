@@ -95,7 +95,7 @@ export const searchIngredients = (searchString) => new Promise((resolve, _reject
       .filter(ingredient => ingredient.includes(searchString));
   const matches = ImmutableArray.uniqueValues(allMatches);
 
-  setTimeout(function () {
+  setTimeout(() => {
     resolve(matches);
   }, 300);
 });
@@ -110,7 +110,7 @@ export const searchByIngredients = (withs, withouts) => new Promise((resolve, re
       return includesWiths && doesNotIncludeWithouts;
     });
 
-  setTimeout(function () {
+  setTimeout(() => {
     resolve(matches);
   }, 300);
 });
@@ -120,22 +120,27 @@ export const searchByTitle = (title) => new Promise((resolve, reject) => {
   const matches =
     recipes.filter(recipe => recipe.title.toLowerCase().includes(titleLowerCase));
 
-  setTimeout(function () {
+  setTimeout(() => {
     resolve(matches);
   }, 300);
 });
 
+let users = [{ Username: "john", Password: "123456"}]
 
 export const login = (username, password) => new Promise((resolve, reject) => {
-  setTimeout(function () {
-    resolve(username === "john" && password === "123456");
+  setTimeout(() => {
+    resolve(users.some(u => u.Username === username && u.Password === password));
   }, 300);
 });
 
 export const logout = () => new Promise((resolve, reject) => {
-  setTimeout(function () {
+  setTimeout(() => {
     resolve();
   }, 300);
 });
+
+export const register = (username, password) => new Promise((resolve, reject) => {
+
+})
 
 // Axios.get("https://localhost:44349/api/values", {withCredentials: true})

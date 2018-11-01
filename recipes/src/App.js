@@ -34,7 +34,10 @@ class App extends Component {
         <header>
           <h1>Recipe galaxy</h1>
           {this.isSignedIn()
-            ? (<button onClick={() => this.signOut()}>Sign out</button>)
+            ? (<div>
+                <p>{"Signed in as " + this.state.authenticatedUser}</p>
+                <button onClick={() => this.signOut()}>Sign out</button>
+              </div>)
             : (<Link to="/login">Sign in</Link>)}
           <Link to={"/addrecipe"}><p>Add Recipe</p></Link>
         </header>        
@@ -43,7 +46,7 @@ class App extends Component {
             ? <Redirect from="/login" to="/"/>
             : []}
           <Redirect exact from="/" to="/search"/>
-          <PrivateRoute path="/addrecipe" isAuthenticated={this.state.isAuthenticated} component={AddRecipe}/>
+          <PrivateRoute path="/addrecipe" isAuthenticated={this.isSignedIn()} component={AddRecipe}/>
           <Route path="/login" render={() => <Login loggedInAs={this.signIn}/>}/>
           <Route path="/search" component={Search}/>
           <Route path="/recipe/:id" component={Recipe}/>          
