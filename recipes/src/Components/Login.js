@@ -5,7 +5,7 @@ class Login extends Component {
 
   constructor() {
     super();
-    this.userNameRef = React.createRef();
+    this.emailRef = React.createRef();
     this.passwordRef = React.createRef();
     this.state = {
       loginDenied: false
@@ -16,15 +16,15 @@ class Login extends Component {
 
   onSubmit = e => {
     e.preventDefault(); // prevent refreshing the page
-    const username = this.userNameRef.current.value;
+    const emailAddress = this.emailRef.current.value;
     const password = this.passwordRef.current.value;
-    Api.login(username, password).then(
+    Api.login(emailAddress, password).then(
       result => {
         this.setState({
           loginDenied: !result
         });
         if (result) {
-          this.props.loggedInAs(username);
+          this.props.loggedInAs(emailAddress);
         }
       }
     );
@@ -34,8 +34,8 @@ class Login extends Component {
     return(
     <div>
       <form onSubmit={this.onSubmit}>
-        User name:<br/>
-        <input type="text" ref={this.userNameRef}/><br/>
+        Email address:<br/>
+        <input type="text" ref={this.emailRef}/><br/>
         Password:<br/>
         <input type="password" ref={this.passwordRef}/>
         <input type="submit" value="Submit"/>

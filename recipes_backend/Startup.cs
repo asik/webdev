@@ -26,6 +26,7 @@ namespace RecipesApi {
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors();
             services
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
@@ -38,7 +39,6 @@ namespace RecipesApi {
                         return Task.CompletedTask;
                     };
                 });
-            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,9 +54,13 @@ namespace RecipesApi {
             }
 
             app.UseHttpsRedirection();
-            app.UseAuthentication();
             app.UseCors(builder =>
-                builder.WithOrigins("http://localhost:3000").AllowCredentials());
+                builder
+                    .WithOrigins("http://localhost:3000")
+                    .AllowCredentials()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            app.UseAuthentication();
             app.UseMvc();
 
         }

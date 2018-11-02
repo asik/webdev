@@ -22,8 +22,8 @@ namespace RecipesApi.Controllers
         };
 
         [Route("login")]
-        [HttpGet]
-        public async Task<IActionResult> Login(LoginModel loginModel)
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
             var index = credentials.FindIndex(c => c.EmailAddress == loginModel.EmailAddress);
             if (index >= 0)
@@ -39,7 +39,7 @@ namespace RecipesApi.Controllers
         }
 
         [Route("logout")]
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();

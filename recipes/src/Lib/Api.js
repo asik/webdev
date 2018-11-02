@@ -1,6 +1,5 @@
 import * as ImmutableArray from './ImmutableArray';
-//import Axios from 'axios'
-
+import Axios from 'axios';
 
 
 const recipes = [
@@ -125,18 +124,32 @@ export const searchByTitle = (title) => new Promise((resolve, reject) => {
   }, 300);
 });
 
-let users = [{ Username: "john", Password: "123456"}]
+//let users = [{ Username: "john", Password: "123456"}]
+let backendUrl = "https://localhost:44349"
 
-export const login = (username, password) => new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve(users.some(u => u.Username === username && u.Password === password));
-  }, 300);
+export const login = (emailAddress, password) => new Promise((resolve, reject) => {  
+    Axios
+      .post(backendUrl + "/auth/login", { EmailAddress: emailAddress, Password: password}, {withCredentials: true})
+      .then(
+        _success => resolve(), 
+        _failure => _failure => {console.log(_failure); reject();}
+      );
 });
 
 export const logout = () => new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve();
-  }, 300);
+  Axios.get(backendUrl + "/auth/logout")
+    .then(
+      _success => resolve(), 
+      _failure => {console.log(_failure); reject();}
+    );
+});
+
+export const values = () => new Promise((resolve, reject) => {
+  Axios.get(backendUrl + "/api/values", {withCredentials: true})
+    .then(
+      _success => resolve(), 
+      _failure => {console.log(_failure); reject();}
+    );
 });
 
 export const register = (username, password) => new Promise((resolve, reject) => {
