@@ -132,7 +132,10 @@ export const login = (emailAddress, password) => new Promise((resolve, reject) =
       .post(backendUrl + "/auth/login", { EmailAddress: emailAddress, Password: password}, {withCredentials: true})
       .then(
         _success => resolve(), 
-        _failure => _failure => {console.log(_failure); reject();}
+        failure => {
+          console.log(failure); 
+          reject();
+        }
       );
 });
 
@@ -140,7 +143,10 @@ export const logout = () => new Promise((resolve, reject) => {
   Axios.get(backendUrl + "/auth/logout")
     .then(
       _success => resolve(), 
-      _failure => {console.log(_failure); reject();}
+      failure => {
+        console.log(failure); 
+        reject();
+      }
     );
 });
 
@@ -148,7 +154,10 @@ export const values = () => new Promise((resolve, reject) => {
   Axios.get(backendUrl + "/api/values", {withCredentials: true})
     .then(
       _success => resolve(), 
-      _failure => {console.log(_failure); reject();}
+      failure => {
+        console.log(failure); 
+        reject();
+      }
     );
 });
 

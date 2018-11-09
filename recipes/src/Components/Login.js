@@ -18,16 +18,14 @@ class Login extends Component {
     e.preventDefault(); // prevent refreshing the page
     const emailAddress = this.emailRef.current.value;
     const password = this.passwordRef.current.value;
-    Api.login(emailAddress, password).then(
-      result => {
-        this.setState({
-          loginDenied: !result
-        });
-        if (result) {
+    Api.login(emailAddress, password)
+      .then(() => {
           this.props.loggedInAs(emailAddress);
+        },
+        () => {
+          this.setState({loginDenied: true});
         }
-      }
-    );
+      );
   }
 
   render() {
