@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace RecipesApi.Controllers
@@ -15,10 +11,10 @@ namespace RecipesApi.Controllers
     [Route("auth")]
     public class AuthController : ControllerBase
     {
-        //TODO use a DB
-        readonly List<Credential> credentials = new List<Credential>
+        //TODO use a real DB
+        static readonly List<Credential> credentials = new List<Credential>
         {
-            Credential.FromPlainTextPassword("john.doe@gmail.com", "John Doe", "123456")
+            Credential.FromPlainTextPassword("jd@gmail.com", "123456")
         };
 
         [Route("login")]
@@ -46,22 +42,24 @@ namespace RecipesApi.Controllers
             return StatusCode(200);
         }
 
-        //[Route("register")]
-        //[HttpPost]
-        //public async Task<IActionResult> Register(RegisterModel registerModel)
-        //{
-        //    //TODO add the user to some database
-        //    var user = new User { Name = registerModel.Name, Email = registerModel.EmailAddress };
-
-        //    return await SignInUser(user);
-        //}
+        [Route("register")]
+        [HttpPost]
+        public IActionResult Register([FromBody] RegisterModel registerModel)
+        {
+            if (credentials.Exists(c => c.EmailAddress == registerModel.EmailAddress))
+            {
+                return StatusCode(400); //TODO return specific error
+            }
+            credentials.Add(Credential.FromPlainTextPassword(registerModel.EmailAddress, registerModel.Password));
+            return StatusCode(200);
+        }
 
         private async Task<IActionResult> SignInUser(Credential credential)
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, credential.EmailAddress),
-                new Claim(ClaimTypes.Name, credential.Username),
+                new Claim(ClaimTypes.Name, credential.EmailAddress),
                 new Claim(ClaimTypes.Email, credential.EmailAddress)
             };
 

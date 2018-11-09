@@ -161,8 +161,15 @@ export const values = () => new Promise((resolve, reject) => {
     );
 });
 
-export const register = (username, password) => new Promise((resolve, reject) => {
-  resolve();
+export const register = (emailAddress, password) => new Promise((resolve, reject) => {
+  Axios.post(backendUrl + "/auth/register", { EmailAddress: emailAddress, Password: password}, {withCredentials: true})
+  .then(
+    _success => resolve(), 
+    failure => {
+      console.log(failure); 
+      reject();
+    }
+  );
 })
 
 // Axios.get("https://localhost:44349/api/values", {withCredentials: true})

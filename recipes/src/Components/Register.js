@@ -24,7 +24,7 @@ class Register extends Component {
         error: "Please fill out all fields."
       })
     }
-    if (password !== repeatPassword) {
+    else if (password !== repeatPassword) {
       this.setState({
         error: "Please enter matching passwords."
       });
