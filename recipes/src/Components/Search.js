@@ -33,7 +33,7 @@ class Search extends Component {
     });
   }
 
-  render() {
+  render = () => {
     const searchComponent =
       this.state.SearchMode === SearchMode.ByTitle 
         ? <SearchByTitle onSearchResults={this.onSearchResults}/> 

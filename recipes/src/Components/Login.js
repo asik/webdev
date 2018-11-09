@@ -12,8 +12,6 @@ class Login extends Component {
     };
   }
 
-
-
   onSubmit = e => {
     e.preventDefault(); // prevent refreshing the page
     const emailAddress = this.emailRef.current.value;

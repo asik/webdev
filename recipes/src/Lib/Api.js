@@ -162,7 +162,7 @@ export const values = () => new Promise((resolve, reject) => {
 });
 
 export const register = (username, password) => new Promise((resolve, reject) => {
-
+  resolve();
 })
 
 // Axios.get("https://localhost:44349/api/values", {withCredentials: true})
