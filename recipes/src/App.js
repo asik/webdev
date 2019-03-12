@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import {Route, Switch, Redirect, Link} from 'react-router-dom';
 
 import Search from './Components/Search'
-import Recipe from './Components/Recipe';
+import {Recipe} from './Components/Recipe';
 import AddRecipe from './Components/AddRecipe';
 import Login from './Components/Login';
 import PrivateRoute from './Components/PrivateRoute';
@@ -22,7 +22,6 @@ class App extends Component {
   }
   registered = () => {
     console.log(this.props);
-    console.log(this.location);
     console.log(this.props.history);
     this.props.history.push({
       pathname: '/login'

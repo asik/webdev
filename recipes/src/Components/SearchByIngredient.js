@@ -3,7 +3,7 @@ import SearchField from './SearchField';
 import IngredientList from './IngredientList'
 import HotIngredientList from './HotIngredientList';
 import * as ImmutableArray from '../Lib/ImmutableArray';
-import * as ApiStub from '../Lib/Api';
+import * as Api from '../Lib/Api';
 
 const WithOrWithout = {
   With: Symbol("With"),
@@ -31,7 +31,7 @@ class SearchByIngredient extends Component {
   }
 
   onSubmit = _ => {
-    ApiStub.searchByIngredients(this.state.Withs, this.state.Withouts).then(results =>
+    Api.searchByIngredients(this.state.Withs, this.state.Withouts).then(results =>
       this.props.onSearchResults(results)
     );
   }
@@ -39,7 +39,7 @@ class SearchByIngredient extends Component {
   onChange = e => {
     if (e.length > 2)
     {
-      ApiStub.searchIngredients(e).then(result => 
+      Api.searchIngredients(e).then(result => 
         this.setState({
           IngredientsHotList: result
         }));

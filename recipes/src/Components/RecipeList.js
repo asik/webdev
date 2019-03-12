@@ -1,17 +1,25 @@
 import React from 'react'
 import StarRating from './StarRating';
 import {Link} from 'react-router-dom';
+// eslint-disable-next-line
+import { RecipeDefinition } from '../Lib/Api';
 
-const Recipe = props =>
+const Recipe = /**
+ * @param {{ recipe: RecipeDefinition; }} props
+ */
+ props =>
   <div>
-    <Link to={"/recipe/" + props.recipe.id}><p>{props.recipe.title}</p></Link>
-    <span>{props.recipe.time} minutes</span>
-    <StarRating starRating={props.recipe.rating} />
+    <Link to={"/recipe/" + props.recipe.Id}><p>{props.recipe.Title}</p></Link>
+    <span>{props.recipe.Time} minutes</span>
+    <StarRating starRating={props.recipe.Rating} />
   </div>
 
-const RecipeList = props =>
+const RecipeList = /**
+ * @param {{ recipes: RecipeDefinition[] }} props
+ */
+ props =>
   <div>
-    {props.recipes.map(recipe => <Recipe key={recipe.id} recipe={recipe} />)}
+    {props.recipes.map(recipe => <Recipe key={recipe.Id} recipe={recipe} />)}
   </div>
 
 export default RecipeList;
