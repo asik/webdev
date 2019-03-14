@@ -28,7 +28,7 @@ class Login extends Component {
 
   render() {
     return(
-    <div>
+    <div className="login">
       <form onSubmit={this.onSubmit}>
         Email address:<br/>
         <input type="text" ref={this.emailRef}/><br/>

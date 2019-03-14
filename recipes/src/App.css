@@ -1,0 +1,23 @@
+#root {
+    max-width: 800px;
+    margin: auto;
+}
+
+header {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+li {
+    float: right;
+    list-style: none;
+    margin: 5px;
+}
+
+.login {
+    grid-column: 3
+}
+
+h1 {
+    font-family: 'Courier New', Courier, monospace
+}

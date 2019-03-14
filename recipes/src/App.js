@@ -36,34 +36,53 @@ class App extends Component {
   };
 
   render() {
+
+    const loginButtons = 
+        <React.Fragment>
+            {this.isSignedIn() 
+                ? <li>
+                    <p>{"Signed in as " + this.state.authenticatedUser}</p>
+                    <button onClick={() => this.signOut()}>Sign out</button>
+                  </li>
+                :
+                <React.Fragment>
+                    <li>
+                        <Link to="/login">Sign in</Link>
+                    </li>
+                    <li>
+                        <Link to="/register">Register</Link>
+                    </li>                
+                </React.Fragment>
+            }
+        </React.Fragment>
+
+
     return (
-      <div>
+      <div className="booya">
         <header>
           <h1>Recipe galaxy</h1>
-          {this.isSignedIn()
-            ? <div>
-                <p>{"Signed in as " + this.state.authenticatedUser}</p>
-                <button onClick={() => this.signOut()}>Sign out</button>
-              </div>
-            : <div>
-                <Link to="/login">Sign in</Link>
-                <Link to="/register">Register</Link>
-              </div>
-            }
-          <Link to={"/addrecipe"}><p>Add Recipe</p></Link>
-        </header>        
-        <Switch>
-          {this.isSignedIn()
-            ? <Redirect from="/login" to="/"/>
-            : []}
-          <Redirect exact from="/" to="/search"/>
-          <PrivateRoute path="/addrecipe" isAuthenticated={this.isSignedIn()} component={AddRecipe}/>
-          <Route path="/login" render={() => <Login loggedInAs={this.signIn}/>}/>
-          <Route path="/register" render={() => <Register registered={this.registered}/>}/>
-          <Route path="/search" component={Search}/>
-          <Route path="/recipe/:id" component={Recipe}/>          
-        </Switch>
-            
+            <div >
+                <ul>
+                    {loginButtons}
+                    <li>
+                        <Link to={"/addrecipe"}>Add Recipe</Link>
+                    </li>
+                </ul>
+            </div>
+        </header>  
+        <main>
+            <Switch>
+            {this.isSignedIn()
+                ? <Redirect from="/login" to="/"/>
+                : []}
+            <Redirect exact from="/" to="/search"/>
+            <PrivateRoute path="/addrecipe" isAuthenticated={this.isSignedIn()} component={AddRecipe}/>
+            <Route path="/login" render={() => <Login loggedInAs={this.signIn}/>}/>
+            <Route path="/register" render={() => <Register registered={this.registered}/>}/>
+            <Route path="/search" component={Search}/>
+            <Route path="/recipe/:id" component={Recipe}/>          
+            </Switch>
+        </main>       
       </div>
     );
   }
