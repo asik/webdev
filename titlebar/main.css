@@ -61,5 +61,10 @@ a {
 }
 
 .facebook-search {
-    display:flex;
+    flex: 1;
+    display: flex;
+}
+
+.facebook-searchfield {
+    flex: 1;
 }
