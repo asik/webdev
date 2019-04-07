@@ -1,9 +1,13 @@
 body {
-    margin: 0; /* by default this has some margin */
+    margin: 0; /* by default the whole body is offset o.0 */
 }
 
 a {
-    text-decoration: none; /* by default this has an underline */
+    text-decoration: none; /* by default links have an underline */
+}
+
+input {    
+    border: 0; /* by default input fields have ugly borders */
 }
 
 .w3schools a {
@@ -38,7 +42,7 @@ a {
     font-weight: 700;
     display:flex;
     align-items: center; /* center vertical because not all elements have the same font size */
-    white-space: nowrap; /* don't wrap around when resizing the page */
+    white-space: nowrap; /* don't wrap text when resizing the page */
 }
 
 .facebook a {
@@ -52,19 +56,18 @@ a {
 .facebook a {
     color:white;
 }
-.facebook a:visited{
-    color:white;
-}
 
 .facebook-icon {
     font-size:22px;
 }
 
 .facebook-search {
-    flex: 1;
+    flex: 1; /* this one takes all remaining space in the bar */
     display: flex;
+    padding-left: 4px;
 }
 
 .facebook-searchfield {
-    flex: 1;
+    flex: 1; /* within the search container, the input takes all remaining space */
+    border-radius: 1px;
 }
