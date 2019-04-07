@@ -1,0 +1,65 @@
+body {
+    margin: 0; /* by default this has some margin */
+}
+
+a {
+    text-decoration: none; /* by default this has an underline */
+}
+
+.w3schools a {
+    /* border-style: solid; /* just to visualize */
+    color:#f1f1f1; /* text color */
+    padding: 10px 15px;
+    text-transform: uppercase;
+    font-size:17px;
+}
+
+.w3schools a:hover {
+    background-color:black;
+}
+
+.w3schools {
+    font-family: "Segoe UI",Arial,sans-serif;
+    background-color: #5f5f5f;   
+    display:flex; /* by default this is... just retarded */
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16);
+}
+
+.w3schoolsRight {
+    margin-left: auto; /* push it as far to the right as possible */
+}
+
+.facebook {
+    margin-top:10px; /* don't overlap the shadow of the previous bar */
+    background-color: rgb(66, 103, 178);
+    color: white;
+    font-family: "Helvetica",Arial,sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    display:flex;
+    align-items: center; /* center vertical because not all elements have the same font size */
+    white-space: nowrap; /* don't wrap around when resizing the page */
+}
+
+.facebook a {
+    padding:10px;
+}
+
+.facebook a:hover{
+    background-color:rgb(41, 72, 125);
+}
+
+.facebook a {
+    color:white;
+}
+.facebook a:visited{
+    color:white;
+}
+
+.facebook-icon {
+    font-size:22px;
+}
+
+.facebook-search {
+    display:flex;
+}
