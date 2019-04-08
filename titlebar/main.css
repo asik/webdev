@@ -69,5 +69,6 @@ input {
 
 .facebook-searchfield {
     flex: 1; /* within the search container, the input takes all remaining space */
+    max-width: 300px; /* ok, maybe *all* remaining space is not such a great idea */
     border-radius: 1px;
 }
