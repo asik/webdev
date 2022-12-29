@@ -1,0 +1,80 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --dot-diameter: 9px;
+}
+
+body {
+  background-color: black;
+}
+
+.dot-container {
+  grid-row: 1;
+  grid-column: 1;
+
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 1px;
+  border-color: gray;
+  display: block;
+  animation-name: motion;
+  animation-duration: var(--duration);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: cubic-bezier(0.12, 0.3, 0.87, 0.7);
+}
+
+.dot-content {
+  height: var(--dot-diameter);
+  width: var(--dot-diameter);
+
+  border-radius: 50%;
+  border-style: none;
+  display: block;
+  animation-name: color;
+  animation-duration: var(--duration);
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  animation-timing-function: ease;
+}
+
+@keyframes motion {
+  from {
+    transform: rotate(-180deg) translateX(var(--radius));
+  }
+  to {
+    transform: rotate(0deg) translateX(var(--radius));
+  }
+}
+
+@keyframes color {
+  from {
+    background-color: white;
+  }
+  to {
+    background-color: var(--color);
+  }
+}
+
+.curve {
+  grid-row: 1;
+  grid-column: 1;
+  width: calc(var(--radius) * 2);
+  height: calc(var(--radius) * 2);
+  border-color: var(--color) var(--color) transparent transparent;
+  border-radius: 50%;
+  border-width: 1px;
+  border-style: solid;
+  transform: rotate(-45deg);
+}
+
+.parent-div {
+  place-items: center;
+  display: grid;
+  left: 50px;
+  top: 50px;
+  width: 500px;
+  height: 500px;
+}
