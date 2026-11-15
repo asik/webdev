@@ -88,6 +88,21 @@ public class NullableBenchmarks
         return sum;
     }
 
+    // Same call, but via a lambda. Lambdas compile to instance methods on a cached singleton, while a
+    // static method group becomes a delegate that goes through a shuffle thunk.
+    [Benchmark, BenchmarkCategory("Bind")]
+    public float Bind_Extension_Lambda()
+    {
+        float sum = 0;
+        var arr = _positions;
+        for (int i = 0; i < arr.Length; i++)
+        {
+            Vector2? adjusted = arr[i].Bind(p => AdjustPosition(p));
+            if (adjusted is { } a) sum += a.X;
+        }
+        return sum;
+    }
+
     [Benchmark, BenchmarkCategory("Bind")]
     public float Bind_StructFunctor()
     {
