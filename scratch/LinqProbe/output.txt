@@ -1,0 +1,50 @@
+Runtime: .NET 10.0.15
+
+Range.Select           -> RangeSelectIterator
+Range.Where            -> IEnumerableWhereIterator
+array.Where.Select     -> ArrayWhereSelectIterator
+array.Select.Where     -> IEnumerableWhereIterator
+array.Select.Select    -> ArraySelectIterator
+array.Where.Where      -> ArrayWhereIterator
+list.Where.Select      -> ListWhereSelectIterator
+
+Range.Select.ToArray()              4112 B/op
+[.. Range.Select]                   4112 B/op
+[.. Range.Select, 42]              12544 B/op
+array.Select.ToArray()              4072 B/op
+array.Where.Select.ToArray()        2128 B/op
+array.Select.Where.ToArray()        4128 B/op
+manual for loop (N/2 array)         2024 B/op
+arr.Select(..).Sum()                  72 B/op
+arr.Sum()                             24 B/op
+
+SpreadRangeSelect          calls: Enumerable.Range, Func..ctor, Enumerable.Select, Enumerable.ToArray
+SpreadRangeSelectPlusOne   calls: List..ctor, Enumerable.Range, Func..ctor, Enumerable.Select, List.AddRange, List.Add, List.ToArray
+SpreadList                 calls: List.ToArray
+QuerySyntax                calls: Func..ctor, Enumerable.Where, Func..ctor, Enumerable.Select, Enumerable.ToArray
+
+Runtime: .NET 11.0.0
+
+Range.Select           -> RangeSelectIterator
+Range.Where            -> IEnumerableWhereIterator
+array.Where.Select     -> ArrayWhereSelectIterator
+array.Select.Where     -> IEnumerableWhereIterator
+array.Select.Select    -> ArraySelectIterator
+array.Where.Where      -> ArrayWhereIterator
+list.Where.Select      -> ListWhereSelectIterator
+
+Range.Select.ToArray()              4112 B/op
+[.. Range.Select]                   4112 B/op
+[.. Range.Select, 42]              12544 B/op
+array.Select.ToArray()              4072 B/op
+array.Where.Select.ToArray()        2128 B/op
+array.Select.Where.ToArray()        4128 B/op
+manual for loop (N/2 array)         2024 B/op
+arr.Select(..).Sum()                  72 B/op
+arr.Sum()                             24 B/op
+
+SpreadRangeSelect          calls: Enumerable.Range, Func..ctor, Enumerable.Select, Enumerable.ToArray
+SpreadRangeSelectPlusOne   calls: List..ctor, Enumerable.Range, Func..ctor, Enumerable.Select, List.AddRange, List.Add, List.ToArray
+SpreadList                 calls: List.ToArray
+QuerySyntax                calls: Func..ctor, Enumerable.Where, Func..ctor, Enumerable.Select, Enumerable.ToArray
+
