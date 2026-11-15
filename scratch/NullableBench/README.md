@@ -91,3 +91,7 @@ dotnet exec --fx-version 10.0.15 bin/Release/net10.0/NullableBench.dll --filter 
 With a .NET 11 SDK, you can instead set `<TargetFrameworks>net10.0;net11.0</TargetFrameworks>`
 and use BenchmarkDotNet's normal out-of-process jobs (`--runtimes net10.0 net11.0`). That needs a
 BenchmarkDotNet version that recognizes .NET 11; 0.15.8 crashes on it.
+
+## See also
+
+F# comparison (`inline` + `[<InlineIfLambda>]`, `FSharpFunc` closures, `ValueOption`): `../NullableBenchFs/README.md`.
